@@ -21,15 +21,11 @@ generator_costs = [175, 100, 150, 150, 300, 350, 400, 300, 200]
 customer_nodes = [1, 4, 6, 8, 9, 10, 11]
 customer_demands = [0.10, 0.19, 0.11, 0.09, 0.21, 0.05, 0.04]
 
-produced_power = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-
 generator_index = 1:9
 customer_index = 1:7
 node_index = 1:11
 
-voltage_angle = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-voltage_amplitute = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-exists_a_path_between = [[2, 11] [1, 3, 11]]
-
+# vi behöver hårdkoda två 11x11 matriser där elementen är 0 om det inte finns en väg mellan noderna och annars är värdet på Gkl/Bkl som ges av tabellen i labb-beskrivningen
+# sen kan vi räkna på customer demand = local_power_used + sum(incoming Pkl)
+# Reactive power intervall för alla noder
 
