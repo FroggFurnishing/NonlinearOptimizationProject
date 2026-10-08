@@ -7,7 +7,7 @@ the_model = Model(Ipopt.Optimizer)
 
 @variable( # Power produced by generator i
     the_model,
-    0 <= produced_power[generator_index] <= generator_capacities[generator_index],
+    0 <= produced_power[i=generator_index] <= generator_capacities[i],
 )
 
 @variable( # voltage_amplitute
@@ -22,7 +22,7 @@ the_model = Model(Ipopt.Optimizer)
 
 @variable( # produced power used by own node
     the_model,
-    0 <= local_power_used[generator_index] <= produced_power[generator_index]
+    0 <= local_power_used[i=generator_index] <= produced_power[i]
 )
 
 
@@ -51,5 +51,21 @@ the_model = Model(Ipopt.Optimizer)
     -0.03 * generator_capacities[generator_index] <= -(voltage_amplitute[k]^2) * B[k][generator_index] + voltage_amplitute[k] * voltage_amplitute[generator_index] * B[k][generator_index] * cos(voltage_angle[k] - voltage_angle[generator_index]) - voltage_amplitute[k] * voltage_amplitute[generator_index] * G[k][generator_index] * sin(voltage_angle[k] - voltage_angle[generator_index])
 )
 
-# 0 <= outgoing active power <= (output power from node i)
+#@constraint( # 0 <= outgoing active power <= (output power from node i)
+#    the_model,
+#    0 <= 
+#)
+
+println(the_model)
+
+optimize!(the_model)
+
+println("") # Printing white line after solver output, before printing
+println("Termination status: ", termination_status(the_model))
+println("Optimal objective function value: ", objective_value(the_model))
+#println("Optimal point: ", value.(x))
+#println("Dual variables/Lagrange multipliers corresponding to some constraints:")
+#println(dual(SOS_constr))
+#println(dual.(ub_constr))
+#println(dual.(LowerBoundRef.(x)))
 
